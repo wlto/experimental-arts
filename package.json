@@ -1,0 +1,33 @@
+{
+  "name": "experimental-arts",
+  "version": "1.0.0",
+  "description": "A small scaffolding tool for ThreeJS projects",
+  "main": "index.js",
+  "scripts": {
+    "create-art-default": "node scripts/create-default-artboard.js",
+    "art": "node scripts/watch.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wlto/experimental-arts.git"
+  },
+  "keywords": [
+    "threejs",
+    "examples",
+    "3d",
+    "webgl"
+  ],
+  "author": "William To",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wlto/experimental-arts/issues"
+  },
+  "homepage": "https://github.com/wlto/experimental-arts#readme",
+  "dependencies": {
+    "node-sass": "^4.9.0",
+    "three": "^0.93.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.4"
+  }
+}

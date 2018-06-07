@@ -32,7 +32,11 @@ if (typeof artboardName != 'string') {
   });
 
   browserSync.init({
-    server: artboardPath
+    server: artboardPath,
+    serveStatic: [{
+      route: ['/assets'],
+      dir: path.join(artboardPath, '..', 'includes')
+    }]
   });
 }
 

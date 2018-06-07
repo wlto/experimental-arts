@@ -2,7 +2,7 @@ const art = (function () {
 
   let renderer, camera, scene;
   let distanceFromCenter = 100;
-  let randomBallsNum = 600;
+  let randomCubesNum = 1000;
 
   function mountRenderer() {
     renderer =
@@ -27,16 +27,19 @@ const art = (function () {
     let light = new THREE.AmbientLight(0xffffff);
     let dirLight = new THREE.DirectionalLight(0xffffff);
 
+    camera.up.set(0, 0, 1);
+
     scene.add(camera);
     scene.add(light);
     scene.add(dirLight);
     
     var axesHelper = new THREE.AxesHelper(20);
-    scene.add( axesHelper );
+    scene.add(axesHelper);
   }
 
   function render() {
     rotateCameraAround(scene.position);
+
     renderer.render(scene, camera);
     window.requestAnimationFrame(render);
   }
@@ -45,23 +48,33 @@ const art = (function () {
   function rotateCameraAround(objTarget) {
     alpha += 0.001;
 
-    // camera.position.x = Math.cos(alpha) * distanceFromCenter;
-    camera.position.y = Math.sin(alpha) * distanceFromCenter;
     camera.position.x = Math.sin(alpha) * distanceFromCenter;
-    camera.position.z = Math.cos(alpha) * distanceFromCenter;
+    camera.position.y = Math.cos(alpha) * distanceFromCenter;
+    camera.position.z = Math.cos(alpha) * distanceFromCenter/5;
 
-    // camera.rotation.x = cameraSpeed;
     camera.lookAt(objTarget);
+    for (let i = 0; i < randomCubesNum; i++) {
+      randomBox = scene.getObjectByName('box-' + i);
+      randomBox.lookAt(objTarget);
+    }
     camera.updateMatrixWorld();
+  }
+
+  function positionRandomBoxes(alpha) {
+    let randomBox;
+    for (let i = 0; i < randomCubesNum; i++) {
+      randomBox = scene.getObjectByName('box-' + i);
+      randomBox.position.x += -Math.sin(alpha) * Math.random();
+      randomBox.position.z += -Math.sin(alpha) * Math.random();
+    }
   }
 
   function rotateRandomBoxes() {
     let randomBox;
-    for (let i = 0; i < randomBallsNum; i++) {
+    for (let i = 0; i < randomCubesNum; i++) {
       randomBox = scene.getObjectByName('box-' + i);
       randomBox.rotation.x = -alpha * 0.1 * 10;
       randomBox.rotation.y = -alpha * 0.1 * 10;
-      // randomBox.rotation.z = 0.02 * Math.random() * 10;
     }
   }
 
@@ -69,10 +82,11 @@ const art = (function () {
   function addRandomBoxes() {
     let randomNum = Math.random() * 12;
     let box;
-    let spread = 50;
+    let spread = 30;
+    let sizeExpo = 1.5;
 
-    for (let i = 0; i < randomBallsNum; i++) {
-      randomNum = Math.random() * 3;
+    for (let i = 0; i < randomCubesNum; i++) {
+      randomNum = Math.random() * sizeExpo;
 
       box = new THREE.Mesh(
         new THREE.BoxGeometry(randomNum, randomNum, randomNum),

@@ -35,7 +35,7 @@ if (typeof artboardName != 'string') {
     server: artboardPath,
     serveStatic: [{
       route: ['/assets'],
-      dir: path.join(artboardPath, '..', 'includes')
+      dir: path.join(__dirname, 'includes')
     }]
   });
 }

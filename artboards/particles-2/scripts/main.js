@@ -80,35 +80,12 @@ const art = (function () {
     group.add(boxHelper);
   }
 
-  function createStarLines(begZ, endZ) {
-    let lineGeometry = new THREE.Geometry();
-    let randomX = Math.random() * (size*2) - size;
-    let randomY = Math.random() * (size*2) - size;
-
-    lineGeometry.vertices.push(new THREE.Vector3(
-      randomX,
-      randomY,
-      begZ
-    ));
-    lineGeometry.vertices.push(new THREE.Vector3(
-      randomX * 10 * Math.random(),
-      randomY * 10 * Math.random(),
-      endZ
-    ));
-
-    let line = new THREE.Line(
-      lineGeometry,
-      new THREE.LineBasicMaterial({ color: 0xcccccc })
-    );
-    group.add(line);
-  }
-
   let speed = 0;
   let slowdown = false;
   let stop = false;
   
   function zoomCamera() {
-    if (stop == true) {
+    if (stop) {
       speed = 0;
     } else {
       if (!slowdown) {
@@ -119,14 +96,12 @@ const art = (function () {
     }
 
     if (camera.position.z <= 300) {
-      // console.log('goes here?');
       moveExistingParticlesVertices();
     } else {
       createParticles(camera.position.z * 2, MAX_PARTICLES);
     }
     
     camera.position.z -= speed;
-    // console.log(group.children);
   }
 
   function moveExistingParticlesVertices() {
@@ -145,23 +120,26 @@ const art = (function () {
   function registerControlButtons() {
     document.getElementById('speedSpaceshipBtn').onclick = function () {
       slowdown = !slowdown;
-      this.innerText = slowdown ? 'Full Speed' : 'Slow Down';
+      this.innerText = slowdown ? 'Full Speed (Space)' : 'Slow Down (Space)';
     }
 
     document.getElementById('restartSpaceshipBtn').onclick = function () {
       camera.position.z = initialCameraPosition;
-      console.log(group);
-      // group.remove(group.children[])
       group.children = [];
       createParticles();
       mountBoxHelper();
-      // group.remove(particles);
       speed = 0;
     }
 
     document.getElementById('stopSpaceshipBtn').onclick = function () {
       stop = !stop;
       this.innerText = stop ? 'Resume' : 'Stop';
+    }
+  }
+
+  document.onkeypress = function (e) {
+    if (e.keyCode === 32) {
+      slowdown = !slowdown;
     }
   }
 })();

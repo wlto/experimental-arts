@@ -1,0 +1,49 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.webgl-container {
+  position: relative;
+  height: 100vh;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+  }
+
+  .control-btns {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+    text-align: center;
+    background-color: rgba(244, 244, 244, 0.09);
+    
+    .control-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      margin-left: 10px;
+      margin-right: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      background: none;
+      text-transform: uppercase;
+      color: #fff;
+      outline: none;
+      transition: background-color 200ms ease-in-out;
+      
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+}

@@ -35,12 +35,11 @@ if (typeof artboardName != 'string') {
     server: artboardPath,
     serveStatic: [{
       route: ['/assets'],
-      dir: path.join(__dirname, 'includes')
+      dir: path.join(__dirname, '..', 'includes')
     }]
   });
 }
 
 function checkExistence(pathName) {
-  console.log(pathName);
   return fs.existsSync(pathName);
 }

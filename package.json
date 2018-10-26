@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/wlto/experimental-arts#readme",
   "dependencies": {
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.4",
     "three": "^0.93.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.24.4"
+    "browser-sync": "^2.26.3"
   }
 }
